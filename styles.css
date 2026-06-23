@@ -224,8 +224,9 @@ em { font-style: italic; color: var(--coral-deep); }
 .section-sub { color: var(--ink-soft); font-size: 1.08rem; }
 
 /* ---------- Services cards ---------- */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; }
+.cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; }
 .card {
+  flex: 1 1 280px; max-width: 344px;
   background: var(--cream); border-radius: var(--radius);
   padding: 2rem 1.7rem; box-shadow: var(--shadow-sm);
   border: 1px solid rgba(120, 84, 44, .08);
