@@ -5,6 +5,46 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Contact form → Formspree (AJAX, so visitors stay on the page)
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  if (form && status) {
+    const setStatus = (msg, kind) => {
+      status.textContent = msg;
+      status.className = "form-status" + (kind ? " " + kind : "");
+    };
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      // Guard: form ID not configured yet
+      if (form.action.includes("YOUR_FORM_ID")) {
+        setStatus("Form isn't connected yet — please email 805.bkkpg@gmail.com.", "err");
+        return;
+      }
+      const btn = form.querySelector("button[type=submit]");
+      if (btn) btn.disabled = true;
+      setStatus("Sending…", "");
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        if (res.ok) {
+          form.reset();
+          setStatus("Thanks! Your message is on its way — I'll reply within one business day.", "ok");
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const msg = data.errors ? data.errors.map((x) => x.message).join(", ") : null;
+          setStatus(msg || "Something went wrong. Please email 805.bkkpg@gmail.com.", "err");
+        }
+      } catch {
+        setStatus("Network error. Please email 805.bkkpg@gmail.com.", "err");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+  }
+
   // Mobile nav toggle
   const toggle = document.querySelector(".nav-toggle");
   const menu = document.getElementById("nav-menu");

@@ -12,30 +12,28 @@ favicon.svg    # little sun-over-waves mark
 CNAME          # custom domain for GitHub Pages (805bookkeeping.biz)
 ```
 
-## ✏️ Before you go live — fill in the real details
+## 💬 Connect the contact form (Formspree)
 
-Search `index.html` for `TODO` and replace the placeholders:
+The form is **fully wired for [Formspree](https://formspree.io)** — it submits
+via AJAX, so visitors stay on the page and get an inline "thanks" message, plus
+a hidden honeypot field blocks spam bots. It just needs your form ID:
 
-- **Email** — `hello@805bookkeeping.biz` (appears in the contact section and form note)
-- **Phone** — `(805) 555-0100` (the `tel:` link and visible number)
-- **Service area / city** — currently "Serving Ventura, Santa Barbara & the 805"
-
-The four services, brand name, and tagline are already set. Tweak any of the
-copy in `index.html` to sound like Mom.
-
-## 💬 Making the contact form actually send
-
-GitHub Pages serves static files only — it can't process a form on its own.
-Right now the form is styled but inert. Easiest options:
-
-1. **Just use email (simplest).** Delete the `<form>` block and lean on the
-   email/phone links that are already there.
-2. **[Formspree](https://formspree.io)** (free tier). Create a form, then set:
+1. Sign up free at **[formspree.io](https://formspree.io)** using
+   **805.bkkpg@gmail.com**.
+2. Create a **New form**, then **verify the email** Formspree sends.
+3. Copy the form's endpoint — it looks like `https://formspree.io/f/abcdwxyz`.
+4. In `index.html`, find the contact `<form>` and replace **`YOUR_FORM_ID`**
+   with your real ID (the `abcdwxyz` part):
    ```html
-   <form class="contact-form" action="https://formspree.io/f/XXXXXXX" method="post">
+   <form class="contact-form" id="contact-form" method="POST"
+         action="https://formspree.io/f/abcdwxyz">
    ```
-   and remove the `onsubmit="return false"` attribute.
-3. **mailto fallback** — point the form at `action="mailto:hello@805bookkeeping.biz"`.
+5. Commit & push. Send yourself a test message to confirm it lands in the inbox.
+
+Until the ID is set, the form politely tells visitors to email directly, and the
+email/phone links work regardless. Free Formspree allows 50 submissions/month;
+paid plans add more. To change the notification address later, do it in the
+Formspree dashboard (no code change needed).
 
 ## 🚀 Deploy on GitHub Pages
 

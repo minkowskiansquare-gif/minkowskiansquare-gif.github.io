@@ -300,6 +300,12 @@ em { font-style: italic; color: var(--coral-deep); }
   box-shadow: 0 0 0 3px rgba(233, 140, 107, .22);
 }
 .field textarea { resize: vertical; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-status { font-size: .92rem; font-weight: 600; margin: .2rem 0 0; text-align: center; min-height: 1.2em; }
+.form-status.ok  { color: var(--teal-600); }
+.form-status.err { color: var(--coral-deep); }
+.form-status:empty { margin: 0; min-height: 0; }
+.btn:disabled { opacity: .6; cursor: default; transform: none; }
 .form-note { font-size: .85rem; color: var(--ink-soft); margin: .2rem 0 0; text-align: center; }
 
 /* ---------- Footer ---------- */
